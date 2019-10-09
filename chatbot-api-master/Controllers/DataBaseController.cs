@@ -1,6 +1,7 @@
 ﻿using ChatbotApiBusinessLayer;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace ChatbotAPI.Controllers
 {
@@ -30,6 +31,12 @@ namespace ChatbotAPI.Controllers
             return cRUD.CreateDatabase(database);
         }
 
+        [HttpGet]
+        public async Task<string[]> GetStoreType()
+        {
+            MasterBusinessLayer businessLayer = new MasterBusinessLayer();
+            return await businessLayer.GetStoreType();
+        }
         // PUT: api/DataBase/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
