@@ -152,6 +152,30 @@ namespace ChatbotApiDataLayer
             return errorMessage;
         }
 
+        public string CreateProductTable(string dbName)
+        {
+            string errorMessage = string.Empty;
+            try
+            {
+                connectionString = connectionString + ";database=" + dbName;
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    con.Open();
+                    var commandStr = "CREATE TABLE [Product] (ID INT IDENTITY(1,1) PRIMARY KEY,Name varchar(Max),Value varchar(Max),Parent INT NULL)";
+                    using (SqlCommand cmd = new SqlCommand(commandStr, con))
+                    {
+                        cmd.CommandTimeout = 300;
+                        cmd.ExecuteNonQuery();
+                        return errorMessage;
+                    }
+                }
+            }
+            catch (System.Exception ex)
+            {
+                return ex.Message;
+            }
+        }
+
         public bool IsUserExists(User user)
         {
             bool isExists = false;

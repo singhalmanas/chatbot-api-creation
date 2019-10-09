@@ -1,6 +1,7 @@
 ﻿using Microsoft.Azure.Cosmos.Table;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -9,7 +10,7 @@ namespace ChatbotApiDataLayer
     public class AzureTableDataAccess
     {
         static string connectionString = "DefaultEndpointsProtocol=https;AccountName=chatbot-master;AccountKey=alSwIXF1LfIKchRFXHCBbVVwU9nh3BOj94Db5GWY7hjTnjSagRwtVwmvAV0h375uA39bGEHYpy0Q385h0UnSdA==;TableEndpoint=https://chatbot-master.table.cosmos.azure.com:443/;";
-
+        string dbconnectionstring= "Data Source=chatbot-data.database.windows.net;User ID = chatbot-user; Password=Noida@144;Connect Timeout = 30; Encrypt=True;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
         public static CloudStorageAccount CreateStorageAccountFromConnectionString()
         {
             CloudStorageAccount storageAccount;
@@ -30,6 +31,53 @@ namespace ChatbotApiDataLayer
             }
 
             return storageAccount;
+        }
+
+        public void InsertProductData(ProductEntity productData, string database, int? parentId)
+        {
+            try
+            {
+                dbconnectionstring = dbconnectionstring + ";database=" + database;
+                using (SqlConnection con = new SqlConnection(dbconnectionstring))
+                {
+                    string value = parentId.HasValue ? parentId.Value.ToString() : "NULL";
+                    con.Open();
+                    var commandStr = "INSERT INTO Product (Name,Value,Parent) Values('" + productData.ColumnName + "','" + productData.ColumnValue + "'," + value + ")";
+                    using (SqlCommand cmd = new SqlCommand(commandStr, con))
+                    {
+                        cmd.CommandTimeout = 300;
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (System.Exception ex)
+            {
+                throw;
+            }
+        }
+
+        public int? GetParentId(ProductEntity productData,string database)
+        {
+            int? parentId = null;
+            try
+            {
+                dbconnectionstring = dbconnectionstring + ";database=" + database;
+                using (SqlConnection con = new SqlConnection(dbconnectionstring))
+                {
+                    con.Open();
+                    var commandStr = "SELECT Id from Product WHERE Name='"+productData.ColumnName+"' AND Value='"+productData.ColumnValue+"'";
+                    using (SqlCommand cmd = new SqlCommand(commandStr, con))
+                    {
+                        cmd.CommandTimeout = 300;
+                        parentId = Convert.ToInt32(cmd.ExecuteScalar());
+                    }
+                }
+                return parentId;
+            }
+            catch (System.Exception ex)
+            {
+                throw;
+            }
         }
 
         public static async Task<CloudTable> CreateTableAsync(string tableName)
