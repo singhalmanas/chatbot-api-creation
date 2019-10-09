@@ -49,7 +49,7 @@ namespace ChatbotApiDataLayer
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
                     con.Open();
-                    var commandStr = "select [Value] from Product where parent='-1'";
+                    var commandStr = "select [Value] from Product WHERE Parent = -1";
                     using (SqlCommand cmd = new SqlCommand(commandStr, con))
                     {
                         using (SqlDataReader reader = cmd.ExecuteReader())
@@ -58,7 +58,7 @@ namespace ChatbotApiDataLayer
                             {
                                 while (reader.Read())
                                 {
-                                    lstProducts.Add(reader["[Value]"]);
+                                    lstProducts.Add(reader["Value"]);
                                 }
                             }
                         }
