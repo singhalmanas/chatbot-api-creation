@@ -40,7 +40,7 @@ namespace ChatbotApiDataLayer
                 dbconnectionstring = dbconnectionstring + ";database=" + database;
                 using (SqlConnection con = new SqlConnection(dbconnectionstring))
                 {
-                    string value = parentId.HasValue ? parentId.Value.ToString() : "NULL";
+                    string value = parentId.HasValue ? parentId.Value.ToString() : "-1";
                     con.Open();
                     var commandStr = "INSERT INTO Product (Name,Value,Parent) Values('" + productData.ColumnName + "','" + productData.ColumnValue + "'," + value + ")";
                     using (SqlCommand cmd = new SqlCommand(commandStr, con))
