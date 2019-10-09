@@ -31,7 +31,7 @@ namespace ChatbotApiBusinessLayer
 
         public bool IsDatabaseExists(string database)
         {
-            return cRUDDataLayer.IsDataBaseExists(database);
+            return false;
         }
     }
 }
