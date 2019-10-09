@@ -25,10 +25,10 @@ namespace ChatbotAPI.Controllers
 
         // POST: api/User
         [HttpPost]
-        public void Post([FromBody]User user)
+        public string Post([FromBody]User user)
         {
             CRUD cRUD = new CRUD();
-            cRUD.CreateUser(user);
+            return cRUD.CreateUser(user);
         }
 
         // PUT: api/User/5
