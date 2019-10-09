@@ -25,7 +25,7 @@ namespace ChatbotAPI.Controllers
 
         // POST: api/DataBase
         [HttpPost]
-        public bool Post([FromBody]string database)
+        public string Post([FromBody]string database)
         {
             CRUD cRUD = new CRUD();
             return cRUD.CreateDatabase(database);

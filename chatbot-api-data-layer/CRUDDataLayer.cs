@@ -68,26 +68,35 @@ namespace ChatbotApiDataLayer
         {
             return string.Empty;
         }
-        public bool CreateDataBase(string database)
+        public string CreateDataBase(string database)
         {
+            string result = "Unable to create Database";
+            try
+            {
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    con.Open();
+                    var commandStr = "CREATE DATABASE " + database;
+                    using (SqlCommand cmd = new SqlCommand(commandStr, con))
+                    {
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            result = reader.HasRows? "DataBase Created": result;
+                        }
+                    }
+                    con.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+            return result;
+        }
 
-            String str;
-            SqlConnection myConn = new SqlConnection("Server=sql-elastic-pool.database.windows.net;User Id=manas1991;Password =String@201301;");
-
-            str = "CREATE DATABASE " + database;
-            //    " ON PRIMARY " +
-            //"(NAME = " + database + "_Data, " +
-            //"FILENAME = 'C:\\" + database + ".mdf', " +
-            //"SIZE = 2MB, MAXSIZE = 10MB, FILEGROWTH = 10%) " +
-            //"LOG ON (NAME = " + database + "_Log, " +
-            //"FILENAME = 'C:\\" + database + "Log.ldf', " +
-            //"SIZE = 1MB, " +
-            //"MAXSIZE = 5MB, " +
-            //"FILEGROWTH = 10%)"
-          
-
-            SqlCommand myCommand = new SqlCommand(str, myConn);
-            myCommand.CommandTimeout = 200;
+        public bool IsDataBaseExists(string database)
+        {
+            bool isExists = false;
             try
             {
                 using (SqlConnection con = new SqlConnection(connectionString))
