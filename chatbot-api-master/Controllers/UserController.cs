@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using chatbot_api_business_layer;
-using ChatbotAPI.Model;
-using Microsoft.AspNetCore.Http;
+﻿using ChatbotAPI.Model;
+using ChatbotApiBusinessLayer;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 namespace ChatbotAPI.Controllers
 {
