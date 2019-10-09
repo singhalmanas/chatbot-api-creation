@@ -31,7 +31,7 @@ namespace ChatbotAPI.Controllers
             return cRUD.CreateDatabase(database);
         }
 
-        [HttpGet]
+        [HttpGet("StoreType")]
         public async Task<string[]> GetStoreType()
         {
             MasterBusinessLayer businessLayer = new MasterBusinessLayer();

@@ -22,9 +22,12 @@ namespace ChatbotApiDataLayer
                     {
                         using (SqlDataReader reader = cmd.ExecuteReader())
                         {
-                            while (reader.HasRows)
+                            if (reader.HasRows)
                             {
-                                storetypes.Add(reader["storename"].ToString());
+                                while (reader.Read())
+                                {
+                                    storetypes.Add(reader["storename"].ToString());
+                                } 
                             }
                         }
                     }
