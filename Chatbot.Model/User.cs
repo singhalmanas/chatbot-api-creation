@@ -16,5 +16,7 @@ namespace ChatbotAPI.Model
         public string Address { get; set; }
 
         public string EmailAddress { get; set; }
+
+        public string DataBaseName { get; set; }
     }
 }
