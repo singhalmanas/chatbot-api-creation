@@ -25,18 +25,17 @@ namespace ChatbotApiBusinessLayer
             return cRUDDataLayer.CreateProduct(product);
         }
 
-        public bool CreateDatabase(string database)
+        public string CreateDatabase(string database)
         {
-            if (!IsDatabaseExists(database))
-            {
-                return cRUDDataLayer.CreateDataBase(database);
-            }
-            return false;
+            if (IsDatabaseExists(database))
+                return "DataBase already Exists";
+
+            return cRUDDataLayer.CreateDataBase(database);
         }
 
         public bool IsDatabaseExists(string database)
         {
-            return false;
+            return cRUDDataLayer.IsDataBaseExists(database);
         }
     }
 }
