@@ -16,7 +16,7 @@ namespace ChatbotAPI.Controllers
         }
 
         // GET: api/DataBase/5
-        [HttpGet("{id}", Name = "Get")]
+        [HttpGet("{id}", Name = "GetDataBase")]
         public string Get(int id)
         {
             return "value";
