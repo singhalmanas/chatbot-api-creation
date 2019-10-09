@@ -1,0 +1,7 @@
+C:\Users\sagsati\source\repos\chatbot-api-creation\Chatbot.Model\bin\Debug\netcoreapp2.1\ChatbotAPI.Model.deps.json
+C:\Users\sagsati\source\repos\chatbot-api-creation\Chatbot.Model\bin\Debug\netcoreapp2.1\ChatbotAPI.Model.dll
+C:\Users\sagsati\source\repos\chatbot-api-creation\Chatbot.Model\bin\Debug\netcoreapp2.1\ChatbotAPI.Model.pdb
+C:\Users\sagsati\source\repos\chatbot-api-creation\Chatbot.Model\obj\Debug\netcoreapp2.1\ChatbotAPI.Model.AssemblyInfoInputs.cache
+C:\Users\sagsati\source\repos\chatbot-api-creation\Chatbot.Model\obj\Debug\netcoreapp2.1\ChatbotAPI.Model.AssemblyInfo.cs
+C:\Users\sagsati\source\repos\chatbot-api-creation\Chatbot.Model\obj\Debug\netcoreapp2.1\ChatbotAPI.Model.dll
+C:\Users\sagsati\source\repos\chatbot-api-creation\Chatbot.Model\obj\Debug\netcoreapp2.1\ChatbotAPI.Model.pdb

@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <RootNamespace>chatbot_api_business_layer</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\chatbot-api-data-layer\ChatbotAPI.DataLayer.csproj" />
+    <ProjectReference Include="..\chatbot-api-master\ChatbotAPI.csproj" />
+  </ItemGroup>
+
+</Project>
