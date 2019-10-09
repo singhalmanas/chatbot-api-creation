@@ -1,7 +1,8 @@
-﻿using chatbot_api_data_layer;
+﻿using ChatbotApiDataLayer;
+using ChatbotAPI;
 using ChatbotAPI.Model;
 
-namespace chatbot_api_business_layer
+namespace ChatbotApiBusinessLayer
 {
     public class CRUD
     {

@@ -2,7 +2,7 @@
 using System;
 using System.Data.SqlClient;
 
-namespace chatbot_api_data_layer
+namespace ChatbotApiDataLayer
 {
     public class CRUDDataLayer
     {
