@@ -2,6 +2,7 @@
 using Microsoft.Azure.Cosmos.Table;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -30,6 +31,18 @@ namespace ChatbotApiBusinessLayer
             {
                 // Delete the table
                 // await table.DeleteIfExistsAsync();
+            }
+        }
+
+        public void InsertProductData(List<ProductEntity> values, string database)
+        {
+            AzureTableDataAccess dataAccess = new AzureTableDataAccess();
+            int? parentId = null;
+            foreach (var productData in values)
+            {
+                dataAccess.InsertProductData(productData, database, parentId);
+                if (productData.ColumnName == "ProductName")
+                    parentId = dataAccess.GetParentId(productData, database);
             }
         }
 

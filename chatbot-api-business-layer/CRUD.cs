@@ -13,8 +13,10 @@ namespace ChatbotApiBusinessLayer
         {
             string response = string.Empty;
             if (!IsUserTableExists(user))
+            {
                 response = cRUDDataLayer.CreateUserTable(user);
-
+                cRUDDataLayer.CreateProductTable(user.DataBaseName);
+            }
             if(string.IsNullOrEmpty(response))
             {
                 if (IsUserExists(user))

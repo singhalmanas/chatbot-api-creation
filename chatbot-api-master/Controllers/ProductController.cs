@@ -35,7 +35,7 @@ namespace ChatbotAPI.Controllers
         public void Post([FromBody]List<ProductEntity> values, [FromQuery]string database)
         {
             AzureTableBusinessLayer azureTableBusinessLayer = new AzureTableBusinessLayer();
-            azureTableBusinessLayer.RunSamples(values, database);
+            azureTableBusinessLayer.InsertProductData(values,database);
         }
 
         // PUT: api/Product/5
