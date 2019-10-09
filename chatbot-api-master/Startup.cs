@@ -45,15 +45,15 @@ namespace chatbot_api_master
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Chatbot API");
                 c.RoutePrefix = string.Empty;
             });
-
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                app.UseHsts();
-            }
+            app.UseDeveloperExceptionPage();
+            //if (env.IsDevelopment())
+            //{
+              
+            //}
+            //else
+            //{
+            //    app.UseHsts();
+            //}
 
             app.UseHttpsRedirection();
             app.UseMvc();

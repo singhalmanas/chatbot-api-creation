@@ -20,7 +20,7 @@ namespace ChatbotApiDataLayer
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
                     con.Open();
-                    var commandStr = "select * from information_schema.tables where table_name =user";
+                    var commandStr = "select * from information_schema.tables where table_name ='user'";
 
                     using (SqlCommand cmd = new SqlCommand(commandStr, con))
                     {
@@ -123,7 +123,9 @@ namespace ChatbotApiDataLayer
             }
             return isExists;
         }
-
+        
+          
+                  
         public string CreateUserTable(User user)
         {
             string errorMessage = string.Empty;
@@ -133,13 +135,12 @@ namespace ChatbotApiDataLayer
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
                     con.Open();
-                    var commandStr = "CREATE TABLE [User] (FirstName varchar(Max),SecondName varchar(Max),LastName varchar(Max),Address varchar(Max),EmailAddress varchar(Max),[DataBase] varchar(Max))";
+                    var commandStr = "CREATE TABLE [User] (UserName varchar(Max),FirstName varchar(Max),SecondName varchar(Max),LastName varchar(Max),Address varchar(Max),EmailAddress varchar(Max),[DataBase] varchar(Max))";
                     using (SqlCommand cmd = new SqlCommand(commandStr, con))
                     {
-                        using (SqlDataReader reader = cmd.ExecuteReader())
-                        {
-                            errorMessage = !reader.HasRows? "Unable to create table": errorMessage;
-                        }
+                        cmd.CommandTimeout = 300;
+                        cmd.ExecuteNonQuery();
+                        return errorMessage;
                     }
                     con.Close();
                 }
@@ -160,7 +161,7 @@ namespace ChatbotApiDataLayer
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
                     con.Open();
-                    var commandStr = "select * from users where userName ="+ user.UserName;
+                    var commandStr = "select * from [user] where userName ="+ user.UserName;
 
                     using (SqlCommand cmd = new SqlCommand(commandStr, con))
                     {
@@ -188,7 +189,7 @@ namespace ChatbotApiDataLayer
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
                     con.Open();
-                    var commandStr = string.Format("INSERT TABLE [User] (UserName,FirstName,SecondName,LastName,Address,EmailAddress,[DataBase]) Values ({0},{1},{2},{3},{4},{5},{6})", user.UserName, user.FirstName, user.SecondName, user.LastName, user.Address, user.EmailAddress, user.DataBaseName);
+                    var commandStr = string.Format("INSERT INTO TABLE [User] (UserName,FirstName,SecondName,LastName,Address,EmailAddress,[DataBase]) Values ({0},{1},{2},{3},{4},{5},{6})", user.UserName, user.FirstName, user.SecondName, user.LastName, user.Address, user.EmailAddress, user.DataBaseName);
                     using (SqlCommand cmd = new SqlCommand(commandStr, con))
                     {
                         using (SqlDataReader reader = cmd.ExecuteReader())
