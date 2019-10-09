@@ -38,6 +38,91 @@ namespace ChatbotApiDataLayer
             return isExists;
         }
 
+        public int GetStoreId(string storetype)
+        {
+            try
+            {
+                int storeTypeId = -1;
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    con.Open();
+                    var commandStr = "select StoreId from StoreType where storename='"+storetype+"'";
+                    using (SqlCommand cmd = new SqlCommand(commandStr, con))
+                    {
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader.HasRows)
+                            {
+                                while (reader.Read())
+                                {
+                                    storeTypeId= Convert.ToInt32(reader["storename"]);
+                                }
+                            }
+                        }
+                    }
+                    con.Close();
+                }
+                return storeTypeId;
+            }
+            catch (System.Exception)
+            {
+                throw;
+            }
+
+        }
+
+        public string EnterUserNameforDatabase(string username, int storetype, string storename)
+        {
+            try
+            {
+
+                connectionString = connectionString + ";database=chatbot-master";
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    con.Open();
+                    var commandStr = "INSERT INTO companyinfo (DBName,Uname,StoreTypeId) VALUES ('"+storename+"','"+username+"',"+storetype+")";
+                    using (SqlCommand cmd = new SqlCommand(commandStr, con))
+                    {
+                        var result = cmd.ExecuteNonQuery();
+                    }
+                    con.Close();
+                }
+                return "";
+            }
+            catch (System.Exception ex)
+            {
+                throw;
+            }
+            
+        }
+
+        public bool IsUserExistsForStore(string username, string storename, string storetype)
+        {
+            bool isExists = false;
+            try
+            {
+                connectionString = connectionString + ";database=chatbot-master" ;
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    con.Open();
+                    var commandStr = "select * from companyinfo cf join storetype st on cf.storetypeid=st.storetypeid where dbname='"+storename+"' and username='"+username+"' and storetype='"+storetype+"'";
+                    using (SqlCommand cmd = new SqlCommand(commandStr, con))
+                    {
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            isExists = reader.HasRows;
+                        }
+                    }
+                    con.Close();
+                }
+            }
+            catch (System.Exception ex)
+            {
+                return isExists;
+            }
+            return isExists;
+        }
+
         public string CreateUser(User user)
         {
             string result = "Unable to create user";
@@ -102,7 +187,7 @@ namespace ChatbotApiDataLayer
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
                     con.Open();
-                    var commandStr = "SELECT * FROM master.dbo.sysdatabases WHERE name ='" + database + "'";
+                    var commandStr = "SELECT * FROM companyInfo WHERE DBName ='" + database + "'";
                     using (SqlCommand cmd = new SqlCommand(commandStr, con))
                     {
                         using (SqlDataReader reader = cmd.ExecuteReader())

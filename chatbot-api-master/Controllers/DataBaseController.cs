@@ -25,10 +25,10 @@ namespace ChatbotAPI.Controllers
 
         // POST: api/DataBase
         [HttpPost]
-        public string Post([FromBody]string database)
+        public string Post([FromQuery]string storename,[FromQuery]string storeType,[FromQuery]string username)
         {
             CRUD cRUD = new CRUD();
-            return cRUD.CreateDatabase(database);
+            return cRUD.CheckAndCreateUserAndStore(username,storename,storeType);
         }
 
         [HttpGet("StoreType")]
