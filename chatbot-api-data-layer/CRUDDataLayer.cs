@@ -8,7 +8,8 @@ namespace ChatbotApiDataLayer
 {
     public class CRUDDataLayer
     {
-        string connectionString = "Data Source=chatbot-data.database.windows.net;User ID = chatbot-user; Password=Noida@144;Connect Timeout = 30; Encrypt=True;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+        string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Integrated Security = True; Connect Timeout = 30; Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+          //  "Data Source=chatbot-data.database.windows.net;User ID = chatbot-user; Password=Noida@144;Connect Timeout = 30; Encrypt=True;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
 
         //string conStr = @"Server=sql-elastic-pool.database.windows.net;Integrated security=SSPI;database=";
         SqlConnection myConn = new SqlConnection();

@@ -8,7 +8,9 @@ namespace ChatbotApiDataLayer
 {
     public class MasterDataLayer
     {
-        string connectionString = "Data Source=chatbot-data.database.windows.net;User ID = chatbot-user; Password=Noida@144;Connect Timeout = 30; Encrypt=True;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False;database=chatbot-master";
+        string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Integrated Security = True; Connect Timeout = 30; Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False;database=chatbot-master";
+
+       // string connectionString = "Data Source=chatbot-data.database.windows.net;User ID = chatbot-user; Password=Noida@144;Connect Timeout = 30; Encrypt=True;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False;database=chatbot-master";
         public async Task<string[]> GetStoreType()
         {
             try

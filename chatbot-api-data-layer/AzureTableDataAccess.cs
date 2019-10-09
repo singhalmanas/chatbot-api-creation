@@ -10,7 +10,7 @@ namespace ChatbotApiDataLayer
     public class AzureTableDataAccess
     {
         static string connectionString = "DefaultEndpointsProtocol=https;AccountName=chatbot-master;AccountKey=alSwIXF1LfIKchRFXHCBbVVwU9nh3BOj94Db5GWY7hjTnjSagRwtVwmvAV0h375uA39bGEHYpy0Q385h0UnSdA==;TableEndpoint=https://chatbot-master.table.cosmos.azure.com:443/;";
-        string dbconnectionstring= "Data Source=chatbot-data.database.windows.net;User ID = chatbot-user; Password=Noida@144;Connect Timeout = 30; Encrypt=True;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+        string dbconnectionstring=  "Data Source=(localdb)\\MSSQLLocalDB;Integrated Security = True; Connect Timeout = 30; Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
         public static CloudStorageAccount CreateStorageAccountFromConnectionString()
         {
             CloudStorageAccount storageAccount;
