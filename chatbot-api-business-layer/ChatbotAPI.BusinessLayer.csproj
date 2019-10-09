@@ -7,7 +7,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\chatbot-api-data-layer\ChatbotAPI.DataLayer.csproj" />
-    <ProjectReference Include="..\chatbot-api-master\ChatbotAPI.csproj" />
   </ItemGroup>
 
 </Project>

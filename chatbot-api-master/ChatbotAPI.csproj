@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\chatbot-api-business-layer\ChatbotAPI.BusinessLayer.csproj" />
     <ProjectReference Include="..\Chatbot.Model\ChatbotAPI.Model.csproj" />
   </ItemGroup>
 

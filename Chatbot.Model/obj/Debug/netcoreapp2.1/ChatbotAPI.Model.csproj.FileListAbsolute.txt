@@ -5,3 +5,4 @@ C:\Users\sagsati\source\repos\chatbot-api-creation\Chatbot.Model\obj\Debug\netco
 C:\Users\sagsati\source\repos\chatbot-api-creation\Chatbot.Model\obj\Debug\netcoreapp2.1\ChatbotAPI.Model.AssemblyInfo.cs
 C:\Users\sagsati\source\repos\chatbot-api-creation\Chatbot.Model\obj\Debug\netcoreapp2.1\ChatbotAPI.Model.dll
 C:\Users\sagsati\source\repos\chatbot-api-creation\Chatbot.Model\obj\Debug\netcoreapp2.1\ChatbotAPI.Model.pdb
+C:\Users\sagsati\source\repos\chatbot-api-creation\Chatbot.Model\obj\Debug\netcoreapp2.1\ChatbotAPI.Model.csprojAssemblyReference.cache

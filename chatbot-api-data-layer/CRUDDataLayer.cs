@@ -1,6 +1,6 @@
-﻿using ChatbotAPI;
-using ChatbotAPI.Model;
+﻿using ChatbotAPI.Model;
 using System;
+using System.Data.SqlClient;
 
 namespace chatbot_api_data_layer
 {
@@ -14,6 +14,14 @@ namespace chatbot_api_data_layer
         public string CreateProduct(Product product)
         {
             return string.Empty;
+        }
+        public bool CreateDataBase(string database)
+        {
+            return true;
+        }
+        public bool IsDataBaseExists(string database)
+        {
+            return true;
         }
 
     }
