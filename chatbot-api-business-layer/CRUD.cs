@@ -1,6 +1,7 @@
 ﻿using ChatbotApiDataLayer;
 using ChatbotAPI;
 using ChatbotAPI.Model;
+using System;
 
 namespace ChatbotApiBusinessLayer
 {
@@ -9,15 +10,30 @@ namespace ChatbotApiBusinessLayer
         CRUDDataLayer cRUDDataLayer = new CRUDDataLayer();
         public string CreateUser(User user)
         {
-            if (IsUserExists(user))
-                return "User Already Exists";
-       
-            return cRUDDataLayer.CreateUser(user);
-           
+            string response = string.Empty;
+            if (!IsUserTableExists(user))
+                response = cRUDDataLayer.CreateUserTable(user);
+
+            if(string.IsNullOrEmpty(response))
+            {
+                if (IsUserExists(user))
+                    response = "User Already Exists";
+                else
+                    response = cRUDDataLayer.CreateUser(user);
+            }
+
+            return string.IsNullOrEmpty(response) ? "User Created" : string.Empty;
+            
         }
-        public bool IsUserExists(User user)
+
+        private bool IsUserExists(User user)
         {
             return cRUDDataLayer.IsUserExists(user);
+        }
+
+        public bool IsUserTableExists(User user)
+        {
+            return cRUDDataLayer.IsUserTableExists(user);
         }
         public string CreateProduct(Product product)
         {

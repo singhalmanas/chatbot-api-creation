@@ -11,7 +11,7 @@ namespace ChatbotApiDataLayer
          
         //string conStr = @"Server=sql-elastic-pool.database.windows.net;Integrated security=SSPI;database=";
         SqlConnection myConn = new SqlConnection();
-        public bool IsUserExists(User user)
+        public bool IsUserTableExists(User user)
         {
             bool isExists = false;
             try
@@ -39,9 +39,9 @@ namespace ChatbotApiDataLayer
             return isExists;
         }
 
-        public string CreateUser(User user)
+        public string CreateUserTable(User user)
         {
-            string result = "Unable to create user";
+            string errorMessage = string.Empty;
             try
             {
                 connectionString = connectionString + ";database=" + user.DataBaseName;
@@ -53,7 +53,7 @@ namespace ChatbotApiDataLayer
                     {
                         using (SqlDataReader reader = cmd.ExecuteReader())
                         {
-                            result = reader.HasRows? "User Created": result;
+                            errorMessage = !reader.HasRows? "Unable to create table": errorMessage;
                         }
                     }
                     con.Close();
@@ -63,8 +63,64 @@ namespace ChatbotApiDataLayer
             {
                 return ex.Message;
             }
-            return result;
+            return errorMessage;
         }
+
+        public bool IsUserExists(User user)
+        {
+            bool isExists = false;
+            try
+            {
+                connectionString = connectionString + ";database=" + user.DataBaseName;
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    con.Open();
+                    var commandStr = "select * from users where userName ="+ user.UserName;
+
+                    using (SqlCommand cmd = new SqlCommand(commandStr, con))
+                    {
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            isExists = reader.HasRows;
+                        }
+                    }
+                    con.Close();
+                }
+            }
+            catch (System.Exception ex)
+            {
+                return isExists;
+            }
+            return isExists;
+        }
+
+        public string CreateUser(User user)
+        {
+            string errorMessage = string.Empty;
+            try
+            {
+                connectionString = connectionString + ";database=" + user.DataBaseName;
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    con.Open();
+                    var commandStr = string.Format("INSERT TABLE [User] (UserName,FirstName,SecondName,LastName,Address,EmailAddress,[DataBase]) Values ({0},{1},{2},{3},{4},{5},{6})", user.UserName, user.FirstName, user.SecondName, user.LastName, user.Address, user.EmailAddress, user.DataBaseName);
+                    using (SqlCommand cmd = new SqlCommand(commandStr, con))
+                    {
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            errorMessage = !reader.HasRows ? "Unable to insert data" : errorMessage;
+                        }
+                    }
+                    con.Close();
+                }
+            }
+            catch (System.Exception ex)
+            {
+                return ex.Message;
+            }
+            return errorMessage;
+        }
+
         public string CreateProduct(Product product)
         {
             return string.Empty;
