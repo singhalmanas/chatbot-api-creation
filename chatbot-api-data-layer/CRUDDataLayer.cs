@@ -20,7 +20,8 @@ namespace ChatbotApiDataLayer
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
                     con.Open();
-                    var commandStr = "select 1 from User";
+                    var commandStr = "select * from information_schema.tables where table_name =user"; 
+
                     using (SqlCommand cmd = new SqlCommand(commandStr, con))
                     {
                         using (SqlDataReader reader = cmd.ExecuteReader())
@@ -47,7 +48,7 @@ namespace ChatbotApiDataLayer
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
                     con.Open();
-                    var commandStr = "CREATE TABLE User(FirstName varchar(Max),SecondName varchar(Max),LastName varchar(Max),Address varchar(Max),EmailAddress varchar(Max),DataBase varchar(Max)";
+                    var commandStr = "CREATE TABLE [User] (FirstName varchar(Max),SecondName varchar(Max),LastName varchar(Max),Address varchar(Max),EmailAddress varchar(Max),[DataBase] varchar(Max))";
                     using (SqlCommand cmd = new SqlCommand(commandStr, con))
                     {
                         using (SqlDataReader reader = cmd.ExecuteReader())
@@ -77,8 +78,10 @@ namespace ChatbotApiDataLayer
                 {
                     con.Open();
                     var commandStr = "CREATE DATABASE " + database;
+                    
                     using (SqlCommand cmd = new SqlCommand(commandStr, con))
                     {
+                        cmd.CommandTimeout = 300;
                         using (SqlDataReader reader = cmd.ExecuteReader())
                         {
                             result = reader.HasRows? "DataBase Created": result;
