@@ -6,4 +6,6 @@
 /chatbot-api-business-layer/obj
 /.vs/
 /chatbot-api-data-layer/obj
-/chatbot-api-master/bin/
+/chatbot-api-master/bin
+/chatbot-api-data-layer/bin
+/Chatbot.Model/obj
