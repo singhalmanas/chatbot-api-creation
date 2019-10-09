@@ -5,19 +5,19 @@ using System.Text;
 
 namespace ChatbotApiDataLayer
 {
-    public class CustomerEntity : TableEntity
+    public class ProductEntity : TableEntity
     {
-        public CustomerEntity()
+        public ProductEntity()
         {
         }
 
-        public CustomerEntity(string lastName, string firstName)
+        public ProductEntity(string columnName, string columnValue)
         {
-            PartitionKey = lastName;
-            RowKey = firstName;
+            ColumnName = columnName;
+            ColumnValue = columnValue;
         }
 
-        public string Email { get; set; }
-        public string PhoneNumber { get; set; }
+        public string ColumnName { get; set; }
+        public string ColumnValue { get; set; }
     }
 }

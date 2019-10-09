@@ -14,12 +14,9 @@ namespace ChatbotApiBusinessLayer
         {
             tableAccess = new AzureTableDataAccess();
         }
-        public async Task RunSamples()
+        public async Task RunSamples(List<ProductEntity> productEntity,string database)
         {
-            Console.WriteLine("Azure Cosmos DB Table - Basic Samples\n");
-            Console.WriteLine();
-
-            string tableName = "demo" + Guid.NewGuid().ToString().Substring(0, 5);
+            string tableName = database+ ".product";
             
             // Create or reference an existing table
             CloudTable table = await AzureTableDataAccess.CreateTableAsync(tableName);
@@ -27,7 +24,7 @@ namespace ChatbotApiBusinessLayer
             try
             {
                 // Demonstrate basic CRUD functionality 
-                await BasicDataOperationsAsync(table);
+                await BasicDataOperationsAsync(table,productEntity);
             }
             finally
             {
@@ -36,34 +33,14 @@ namespace ChatbotApiBusinessLayer
             }
         }
 
-        private static async Task BasicDataOperationsAsync(CloudTable table)
+        private static async Task BasicDataOperationsAsync(CloudTable table, List<ProductEntity> productEntity)
         {
             // Create an instance of a customer entity. See the Model\CustomerEntity.cs for a description of the entity.
-            CustomerEntity customer = new CustomerEntity("Harp", "Walter")
-            {
-                Email = "Walter@contoso.com",
-                PhoneNumber = "425-555-0101"
-            };
 
-            // Demonstrate how to insert the entity
-            Console.WriteLine("Insert an Entity.");
-            customer = await AzureTableDataAccess.InsertOrMergeEntityAsync(table, customer);
+            AzureTableDataAccess.InsertOrMergeEntityAsync(table, productEntity);
 
-            // Demonstrate how to Update the entity by changing the phone number
-            Console.WriteLine("Update an existing Entity using the InsertOrMerge Upsert Operation.");
-            customer.PhoneNumber = "425-555-0105";
-            await AzureTableDataAccess.InsertOrMergeEntityAsync(table, customer);
-            Console.WriteLine();
-
-            // Demonstrate how to Read the updated entity using a point query 
-            Console.WriteLine("Reading the updated Entity.");
-            customer = await AzureTableDataAccess.RetrieveEntityUsingPointQueryAsync(table, "Harp", "Walter");
-            Console.WriteLine();
-
-            // Demonstrate how to Delete an entity
-            //Console.WriteLine("Delete the entity. ");
-            //await SamplesUtils.DeleteEntityAsync(table, customer);
-            //Console.WriteLine();
+    
+    
         }
     }
 }

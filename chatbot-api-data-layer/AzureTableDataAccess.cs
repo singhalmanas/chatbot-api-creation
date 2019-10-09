@@ -57,28 +57,25 @@ namespace ChatbotApiDataLayer
             return table;
         }
 
-        public static async Task<CustomerEntity> InsertOrMergeEntityAsync(CloudTable table, CustomerEntity entity)
+        public static void InsertOrMergeEntityAsync(CloudTable table, List<ProductEntity> productEntities)
         {
-            if (entity == null)
+            if (productEntities == null)
             {
-                throw new ArgumentNullException("entity");
+                throw new ArgumentNullException("productEntities");
             }
             try
             {
+
                 // Create the InsertOrReplace table operation
-                TableOperation insertOrMergeOperation = TableOperation.InsertOrMerge(entity);
-
-                // Execute the operation.
-                TableResult result = await table.ExecuteAsync(insertOrMergeOperation);
-                CustomerEntity insertedCustomer = result.Result as CustomerEntity;
-
-                // Get the request units consumed by the current operation. RequestCharge of a TableResult is only applied to Azure Cosmos DB
-                if (result.RequestCharge.HasValue)
+                productEntities.ForEach(entity =>
                 {
-                    Console.WriteLine("Request Charge of InsertOrMerge Operation: " + result.RequestCharge);
-                }
+                    TableOperation insertOrMergeOperation = TableOperation.InsertOrMerge(entity);
 
-                return insertedCustomer;
+                    // Execute the operation.
+                    TableResult result = table.Execute(insertOrMergeOperation);
+                    ProductEntity insertedCustomer = result.Result as ProductEntity;
+                });
+
             }
             catch (StorageException e)
             {
@@ -88,16 +85,16 @@ namespace ChatbotApiDataLayer
             }
         }
 
-        public static async Task<CustomerEntity> RetrieveEntityUsingPointQueryAsync(CloudTable table, string partitionKey, string rowKey)
+        public static async Task<ProductEntity> RetrieveEntityUsingPointQueryAsync(CloudTable table, string partitionKey, string rowKey)
         {
             try
             {
-                TableOperation retrieveOperation = TableOperation.Retrieve<CustomerEntity>(partitionKey, rowKey);
+                TableOperation retrieveOperation = TableOperation.Retrieve<ProductEntity>(partitionKey, rowKey);
                 TableResult result = await table.ExecuteAsync(retrieveOperation);
-                CustomerEntity customer = result.Result as CustomerEntity;
+                ProductEntity customer = result.Result as ProductEntity;
                 if (customer != null)
                 {
-                    Console.WriteLine("\t{0}\t{1}\t{2}\t{3}", customer.PartitionKey, customer.RowKey, customer.Email, customer.PhoneNumber);
+                    Console.WriteLine("\t{0}\t{1}\t{2}\t{3}", customer.PartitionKey, customer.RowKey, customer.ColumnName, customer.ColumnValue);
                 }
 
                 // Get the request units consumed by the current operation. RequestCharge of a TableResult is only applied to Azure CosmoS DB 
@@ -116,7 +113,7 @@ namespace ChatbotApiDataLayer
             }
         }
 
-        public static async Task DeleteEntityAsync(CloudTable table, CustomerEntity deleteEntity)
+        public static async Task DeleteEntityAsync(CloudTable table, ProductEntity deleteEntity)
         {
             try
             {
