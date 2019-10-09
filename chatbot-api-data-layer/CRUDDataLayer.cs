@@ -56,7 +56,7 @@ namespace ChatbotApiDataLayer
                             {
                                 while (reader.Read())
                                 {
-                                    storeTypeId = Convert.ToInt32(reader["storename"]);
+                                    storeTypeId= Convert.ToInt32(reader["StoreId"]);
                                 }
                             }
                         }
