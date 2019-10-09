@@ -1,5 +1,6 @@
 ﻿using ChatbotAPI.Model;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -39,6 +40,40 @@ namespace ChatbotApiDataLayer
             return isExists;
         }
 
+        public List<object> GetProduct(string id)
+        {
+            List<object> lstProducts = new List<object>();
+            try
+            {
+                connectionString = connectionString + ";database=" + id;
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    con.Open();
+                    var commandStr = "select [Value] from Product where parent=-1";
+                    using (SqlCommand cmd = new SqlCommand(commandStr, con))
+                    {
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader.HasRows)
+                            {
+                                while (reader.Read())
+                                {
+                                    lstProducts.Add(reader["[Value]"]);
+                                }
+                            }
+                        }
+                    }
+                    con.Close();
+                }
+                return lstProducts;
+            }
+            catch (System.Exception ex)
+            {
+                throw;
+            }
+
+        }
+
         public int GetStoreId(string storetype)
         {
             try
@@ -56,7 +91,7 @@ namespace ChatbotApiDataLayer
                             {
                                 while (reader.Read())
                                 {
-                                    storeTypeId= Convert.ToInt32(reader["StoreId"]);
+                                    storeTypeId = Convert.ToInt32(reader["StoreId"]);
                                 }
                             }
                         }
@@ -123,9 +158,9 @@ namespace ChatbotApiDataLayer
             }
             return isExists;
         }
-        
-          
-                  
+
+
+
         public string CreateUserTable(User user)
         {
             string errorMessage = string.Empty;
@@ -161,7 +196,7 @@ namespace ChatbotApiDataLayer
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
                     con.Open();
-                    var commandStr = "select * from [user] where userName ="+ user.UserName;
+                    var commandStr = "select * from [user] where userName =" + user.UserName;
 
                     using (SqlCommand cmd = new SqlCommand(commandStr, con))
                     {

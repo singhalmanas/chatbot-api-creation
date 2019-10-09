@@ -2,6 +2,7 @@
 using ChatbotAPI;
 using ChatbotAPI.Model;
 using System;
+using System.Collections.Generic;
 
 namespace ChatbotApiBusinessLayer
 {
@@ -29,6 +30,11 @@ namespace ChatbotApiBusinessLayer
         private bool IsUserExists(User user)
         {
             return cRUDDataLayer.IsUserExists(user);
+        }
+
+        public List<object> GetProduct(string id)
+        {
+            return cRUDDataLayer.GetProduct(id);
         }
 
         private bool IsUserExistsForStore(string username,string storename,string storetype)

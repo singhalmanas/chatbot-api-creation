@@ -22,9 +22,12 @@ namespace ChatbotAPI.Controllers
 
         // GET: api/Product/5
         [HttpGet("{id}", Name = "GetProduct")]
-        public string Get(int id)
+        public object[] Get(string id)
         {
-            return "value";
+            List<object> lstProducts = new List<object>();
+            CRUD cRUD = new CRUD();
+            lstProducts = cRUD.GetProduct(id);
+            return lstProducts.ToArray();
         }
 
         // POST: api/Product
@@ -32,7 +35,7 @@ namespace ChatbotAPI.Controllers
         public void Post([FromBody]List<ProductEntity> values, [FromQuery]string database)
         {
             AzureTableBusinessLayer azureTableBusinessLayer = new AzureTableBusinessLayer();
-            azureTableBusinessLayer.RunSamples(values,database);
+            azureTableBusinessLayer.RunSamples(values, database);
         }
 
         // PUT: api/Product/5
