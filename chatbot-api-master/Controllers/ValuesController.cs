@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ChatbotApiBusinessLayer;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ChatbotAPI
@@ -10,10 +11,21 @@ namespace ChatbotAPI
     [ApiController]
     public class ValuesController : ControllerBase
     {
+        [HttpGet]
+        [Route("RunTest")]
+        public async Task<ActionResult<bool>> Val()
+        {
+            AzureTableBusinessLayer bl = new AzureTableBusinessLayer();
+            await bl.RunSamples();
+            return true;
+        }
+
         // GET api/values
         [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        public async Task<ActionResult<IEnumerable<string>>> Get()
         {
+            AzureTableBusinessLayer bl = new AzureTableBusinessLayer();
+            await bl.RunSamples();
             return new string[] { "value1", "value2" };
         }
 
