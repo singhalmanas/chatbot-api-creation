@@ -1,15 +1,14 @@
 ﻿using ChatbotApiDataLayer;
 using ChatbotAPI;
 using ChatbotAPI.Model;
-using System;
 
 namespace ChatbotApiBusinessLayer
 {
     public class CRUD
-    {   
+    {
+        CRUDDataLayer cRUDDataLayer = new CRUDDataLayer();
         public string CreateUser(User user)
         {
-            CRUDDataLayer cRUDDataLayer = new CRUDDataLayer();
             return cRUDDataLayer.CreateUser(user);
         }
 
@@ -17,6 +16,22 @@ namespace ChatbotApiBusinessLayer
         {
             CRUDDataLayer cRUDDataLayer = new CRUDDataLayer();
             return cRUDDataLayer.CreateProduct(product);
+        }
+
+        public bool CreateDatabase(string database)
+        {
+            if (!IsDatabaseExists(database))
+            {
+                CRUDDataLayer cRUDDataLayer = new CRUDDataLayer();
+                return cRUDDataLayer.CreateDataBase(database);
+            }
+            return false;
+
+        }
+
+        public bool IsDatabaseExists(string database)
+        {
+            return cRUDDataLayer.IsDataBaseExists(database);
         }
     }
 }

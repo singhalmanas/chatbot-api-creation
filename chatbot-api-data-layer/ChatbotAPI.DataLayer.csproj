@@ -22,4 +22,8 @@
     <ProjectReference Include="..\Chatbot.Model\ChatbotAPI.Model.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Chatbot.Model\ChatbotAPI.Model.csproj" />
+  </ItemGroup>
+
 </Project>
