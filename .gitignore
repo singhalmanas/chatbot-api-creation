@@ -3,3 +3,6 @@
 ################################################################################
 
 /chatbot-api-master/obj
+/chatbot-api-business-layer/obj
+/.vs/chatbot-api-master/v16
+/chatbot-api-data-layer/obj
